@@ -59,7 +59,11 @@ Once you have:
 
 ## Output
 
-Emit exactly one file: **MIGRATION_PLAN.md**. No dangling TODOs. Use imperative, executable language ("Create…", "Implement…", "Test…"). Every task must include:
+Emit exactly one file: **MIGRATION_PLAN.md** at the path `../<target-name>-stylus/plan.md` (a sibling directory to the porting target). This ensures any workspace configuration (e.g., `Cargo.toml` workspace members) in the target repository does not interfere with the Stylus port.
+
+For example, if the target is at `/path/to/solana-program`, create the plan at `/path/to/solana-program-stylus/plan.md`.
+
+No dangling TODOs. Use imperative, executable language ("Create…", "Implement…", "Test…"). Every task must include:
 
 - Concrete file paths to create/modify.
 - Any tool calls needed.
@@ -112,6 +116,12 @@ For each phase provide:
 - Success Criteria (objective, checkable)
 - Tasks (granular, each with a handbook citation and file path)
 - Exit Conditions (what must be true to move on)
+
+**Important**: When verifying compilation passes, always use the WASM target:
+```bash
+cargo build --target wasm32-unknown-unknown
+```
+This ensures the contract compiles correctly for the Stylus runtime.
 
 #### 9. Boilerplate Artifacts (Embedded, Pinned)
 

@@ -85,7 +85,7 @@ pub fn list_prompts_request(_req: ListPromptsRequest) -> Result<ListPromptsResul
 }
 
 pub fn get_prompt_request(req: GetPromptRequest) -> Result<GetPromptResult, RpcError> {
-    let Some(result) = crate::prompts::call(&req.params.name, req.params.arguments.as_ref()) else {
+    let Some(result) = crate::prompts::call(&req.params.name) else {
         return Err(RpcError::internal_error()
             .with_message(format!("prompt not found: {}", req.params.name)));
     };
